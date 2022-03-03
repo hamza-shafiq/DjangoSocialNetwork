@@ -22,11 +22,9 @@ class AbstractAPI:
             "region": resp["region"],
             "country": resp["country"],
             "country_code": resp["country_code"],
-            "continent": resp["continent"],
             "postal_code": resp["postal_code"],
             "latitude": resp["latitude"],
             "longitude": resp["longitude"],
-            "country_flag": resp["flag"]["png"]
         }
 
         return result_set
@@ -34,17 +32,17 @@ class AbstractAPI:
     @staticmethod
     def extract_info(param):
         return {
-            "event_title": param["name"],
+            "event": param["name"],
             "week_day": param["week_day"],
         }
 
     def get_holidays(self, country_code, date):
         url = self.BASE_URL.format("holidays")
         payload = "{}?api_key={}&country={}&year={}&month={}&day={}".format(
-            url, self.HD_API_KEY, country_code, date["year"], date["month"], date["day"])
+            url, self.HD_API_KEY, country_code, date[0], date[1], date[2])
+
         response = requests.get(payload)
         resp_list = json.loads(response.content)
-
         holiday_info = [self.extract_info(each_holiday) for each_holiday in resp_list]
         return holiday_info
 

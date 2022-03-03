@@ -11,6 +11,7 @@ django-filter = "*"
 djangorestframework-jwt = "*"
 python-dotenv = "*"
 requests = "*"
+django-q = "*"
 
 [dev-packages]
 
