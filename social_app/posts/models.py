@@ -22,7 +22,7 @@ class Posts(HelpingModel):
         verbose_name_plural = "posts"
 
     def __str__(self):
-        return self.user.name
+        return self.user.username
 
 
 class PostLikeDislike(models.Model):

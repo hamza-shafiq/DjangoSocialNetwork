@@ -1,4 +1,5 @@
 import requests
+from requests.adapters import HTTPAdapter, Retry
 import json
 from django.conf import settings
 
@@ -13,7 +14,13 @@ class AbstractAPI:
     def get_geolocation_content(self):
         url = self.BASE_URL.format("ipgeolocation")
         payload = "{}?api_key={}".format(url, self.GEO_API_KEY)
-        response = requests.get(payload)
+
+        # API hit retries if it fails due to server error
+        s = requests.Session()
+        retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
+        s.mount('https://', HTTPAdapter(max_retries=retries))
+
+        response = s.get(payload)
         resp = json.loads(response.content)
 
         result_set = {
