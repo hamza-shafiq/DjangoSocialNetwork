@@ -25,7 +25,14 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 # User serializer
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = '__all__'
+
+# Serializers define the API representation.
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        # fields = "__all__"
+        fields = ['id', 'url', 'username', 'first_name', 'last_name', 'email', 'date_joined']

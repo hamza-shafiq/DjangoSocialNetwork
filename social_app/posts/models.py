@@ -28,8 +28,8 @@ class Posts(HelpingModel):
 class PostLikeDislike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     post = models.ForeignKey(Posts, on_delete=models.CASCADE, blank=True, null=True)
-    likes = models.IntegerField(default=0)
-    dislikes = models.IntegerField(default=0)
+    likes = models.BooleanField(default=False)
+    dislikes = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "post_like_dislike"
