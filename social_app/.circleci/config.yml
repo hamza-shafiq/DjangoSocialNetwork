@@ -24,3 +24,12 @@ jobs:
       - store_artifacts:
           path: test-reports/
           destination: python_app
+
+workflows:
+  social-app-workflow:
+    jobs:
+      - build
+        filters:
+            branches:
+              only:
+                - main

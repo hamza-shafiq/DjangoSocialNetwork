@@ -26,9 +26,10 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 
-Run django server through the following command:
+Run django `server` & `q-clustor` through the following respective commands:
 ```
 python3 manage.py runserver
+python3 manage.py qcluster
 ```
 
 Run test-cases through the following command:
