@@ -39,7 +39,7 @@ class ViewSetTest(TestCase):
         api_request = factory.post('register/', new_user, format='json')
         response = register_view(api_request)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
     def test_login(self):
         factory = APIRequestFactory(enforce_csrf_checks=True)
