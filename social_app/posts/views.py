@@ -21,7 +21,6 @@ class PostViewSet(viewsets.ModelViewSet):
         my_post_likes = post_like_dislike_obj.filter(likes=True).count()
         my_post_dislikes = post_like_dislike_obj.filter(dislikes=True).count()
 
-        print(my_post_likes, " - ", my_post_dislikes)
         serializer = self.get_serializer(instance)
         resp = serializer.data
         resp["likes"] = my_post_likes

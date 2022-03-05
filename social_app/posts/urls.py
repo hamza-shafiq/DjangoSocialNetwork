@@ -9,7 +9,3 @@ router = DefaultRouter()
 router.register(r'post', PostViewSet, basename='post')
 router.register(r'like-dislike', PostLikeDislikeViewSet, basename='like-dislike')
 urlpatterns = router.urls
-
-# urlpatterns = [
-#     path('post/', PostViewSet, name='post'),
-# ]
