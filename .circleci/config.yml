@@ -13,7 +13,8 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip3 install -r social_app/requirements.txt
+            pip install --upgrade pip
+            pip install -r social_app/requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "social_app/requirements.txt" }}
           paths:
