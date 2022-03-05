@@ -17,7 +17,6 @@ jobs:
             cd social_app
             pip install --upgrade pip
             pip install -r requirements.txt
-            python3 manage.py qcluster
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "social_app/requirements.txt" }}
           paths:
