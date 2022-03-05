@@ -1,17 +1,10 @@
-import json
-
-from django.test import TestCase
-from rest_framework.test import APITestCase, URLPatternsTestCase, APIRequestFactory, APIClient
+from rest_framework.test import APITestCase, APIClient
 from .models import Posts
 from django.contrib.auth.models import User
-from rest_framework.test import force_authenticate
-from .views import PostViewSet
-from rest_framework_simplejwt.views import TokenObtainPairView
-from django.urls import reverse
 from rest_framework import status
 
 
-class PostingTests(APITestCase):
+class PostTests(APITestCase):
 
     def setUp(self):
         # Create a test user instance
@@ -45,3 +38,31 @@ class PostingTests(APITestCase):
         response = self.client.get(self.url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(dict(response.data[0])["title"], "test post")
+
+
+class PostLikeDislikeTests(APITestCase):
+
+    def setUp(self):
+        # Create a test user instance
+        self.client = APIClient()
+        self.url = "/api/v1/social-app/like-dislike/"
+        self.user = User.objects.create_superuser(
+            username="Alex", password="Alpha@1234", email="alex@gmail.com",
+            first_name="Alex", last_name="Hales"
+        )
+        self.post = Posts.objects.create(user=self.user, title="test post", content="test content")
+
+    def test_create_new_post(self):
+        """
+        Ensure we can like / dislike a post.
+        """
+        post_like_dislike = {
+            "user": self.user.id,
+            "post": self.post.id,
+            "likes": 1,
+            "dislikes": 0
+        }
+        self.client.force_authenticate(user=self.user)
+        response = self.client.post(self.url, post_like_dislike, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data["message"], "Post Liked / Disliked Successfully.")

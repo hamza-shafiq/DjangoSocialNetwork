@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -117,7 +117,12 @@ class PostLikeDislikeViewSet(viewsets.ModelViewSet):
                                                                           likes=likes, dislikes=dislikes)
 
         serializer = PostLikeDislikeSerializer(post_action)
-        return Response(serializer.data)
+
+        content = {
+            "data": serializer.data,
+            "message": "Post Liked / Disliked Successfully."
+        }
+        return Response(content, status=status.HTTP_201_CREATED)
 
     # def update(self, request, pk=None):
     #     queryset = Posts.objects.all()
