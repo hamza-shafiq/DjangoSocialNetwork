@@ -23,7 +23,8 @@ jobs:
           name: Running tests
           command: |
             . venv/bin/activate
-            python3 social_app/manage.py test
+            cd social_app
+            python3 manage.py test
 
 workflows:
   version: 2
